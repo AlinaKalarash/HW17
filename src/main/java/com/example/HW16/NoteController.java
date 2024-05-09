@@ -9,9 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Random;
 
+@RequestMapping("/note")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/note")
 public class NoteController {
     private final NoteService service;
 

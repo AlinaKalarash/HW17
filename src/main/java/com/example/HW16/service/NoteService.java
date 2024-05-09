@@ -5,13 +5,12 @@ import com.example.HW16.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 @RequiredArgsConstructor
 @Service
 public class NoteService {
-    private List<Note> notes = new ArrayList<>();
+//    private List<Note> notes = new ArrayList<>();
     private final NoteRepository repository;
 
 
@@ -35,12 +34,13 @@ public class NoteService {
         return repository.existsById(id);
     }
 
-//    TODO:
+
     public void update(Note note) {
         Long id = note.getId();
         Note updateNote = getById(id);
         updateNote.setTitle(note.getTitle());
         updateNote.setContent(note.getContent());
+        repository.save(updateNote);
     }
 
     public Note getById(Long id) {
