@@ -1,4 +1,9 @@
 package com.example.HW16.repository;
 
-public class NoteRepository {
+import com.example.HW16.entity.Note;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface NoteRepository extends JpaRepository<Note, Long> {
 }
