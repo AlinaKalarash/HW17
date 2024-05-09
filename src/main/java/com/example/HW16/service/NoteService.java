@@ -1,42 +1,54 @@
 package com.example.HW16.service;
 
 import com.example.HW16.entity.Note;
+import com.example.HW16.repository.NoteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+@RequiredArgsConstructor
 @Service
 public class NoteService {
     private List<Note> notes = new ArrayList<>();
+    private final NoteRepository repository;
+
 
     public List<Note> listAll() {
-        return this.notes;
+        return repository.findAll();
     }
 
     public Note add(Note note) {
-        long i = new Random().nextInt();
-        note.setId(i);
-        notes.add(note);
-        return note;
+        return repository.save(note);
     }
 
-    public void deleteById(long id) {
-        Note note = getById(id);
-        this.notes.remove(note);
+    public void deleteById(Long id) {
+        if (doesNoteExist(id)) {
+            repository.delete(getById(id));
+        } else {
+            System.out.println("There's no note with that id");
+        }
     }
 
+    public boolean doesNoteExist(Long id) {
+        return repository.existsById(id);
+    }
+
+//    TODO:
     public void update(Note note) {
-        long id = note.getId();
+        Long id = note.getId();
         Note updateNote = getById(id);
         updateNote.setTitle(note.getTitle());
         updateNote.setContent(note.getContent());
     }
 
-    public Note getById(long id) {
-        return this.notes.stream()
-                .filter(note -> note.getId() == id).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Note with id "+ id + " is not found"));
+    public Note getById(Long id) {
+        if (doesNoteExist(id)) {
+            return repository.getById(id);
+        } else {
+            return new Note();
+        }
     }
 
 }
