@@ -1,18 +1,20 @@
-package com.example.HW16.entity;
+package com.example.HW16.controller.response;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-public class Note {
-    @Id
+import java.util.UUID;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class NoteResponse {
+
     private Long id;
-    @Column
     private String title;
-    @Column
     private String content;
 
     public Long getId() {
